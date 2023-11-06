@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import { ShoppingCartContext } from '../../Context'
+import { MdShoppingCart } from 'react-icons/md'
 
 export const NavBar = () => {
+    const context = useContext(ShoppingCartContext)
     const activeStyle = 'underline underline-offset-4'
     
     return (
@@ -110,12 +114,14 @@ export const NavBar = () => {
                 </li>
                 <li >
                     <NavLink
-                        to='/carrito'
-                        className={({isActive}) => 
-                            isActive ? activeStyle : undefined
-                        }
+                        // to='/carrito'
+                        // className={({isActive}) => 
+                        //     isActive ? activeStyle : undefined
+                        // }
+                        className="flex items-center gap-1"
                     >
-                        Carrito
+                        <MdShoppingCart className='w-4 h-4'/>
+                        {context.count}
                     </NavLink>
                 </li>
                 

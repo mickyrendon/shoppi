@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Layout } from "../../components/Layout"
 import { Card } from "../../components/Card"
-
+import { ProductDetail } from "../../components/ProductDetail"
 
 export const Home = () => {
 
@@ -29,6 +29,7 @@ export const Home = () => {
                 )
             }
           </div>
+          <ProductDetail></ProductDetail>
         </Layout>
     )
   }
