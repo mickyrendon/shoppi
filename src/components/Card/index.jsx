@@ -8,17 +8,33 @@ export const Card = ({data}) => {
     Card.propTypes = {
         data: PropTypes.node.isRequired,
     }     
-    // console.log(data)
+    console.log(data)
 
     const context = useContext(ShoppingCartContext)
 
+    // product detail info recibe como valor a 'data' que se llama justo al clickear la card y que es la respuesta al fetch o a la api en forma de objeto
+    const showProductInfo = (productDetail) => {
+        context.toggleProductDetailOpen()
+        context.setProductInfo(productDetail)
+
+    }
+
     if (data && data.title && data.price) {
     return (
-        <div className="w-56 h-64 flex flex-col cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow">
-            <figure className="shrink w-full h-48 relative rounded-t-lg">
+        <div className="w-44 h-auto flex flex-col cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        onClick={ (e) => {
+            e.stopPropagation()
+            // recibe como parametro a data que viene destructurado del componente Card el cual tiene como valor la respuesta del fetch que es uno bjeto
+            showProductInfo(data)
+        }}
+        >
+            <figure className="shrink w-full h-44 relative rounded-t-lg">
                 <button 
                 className="w-4 h-4 grid place-content-center absolute right-4 top-4 rounded-full p-4 shadow-inner bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white"
-                onClick={() => context.setCount(context.count + 1)}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    context.setCount(context.count + 1)
+                }}
                 >
                     <VscAdd className="w-4 h-4 stroke-1"/>
                 </button>

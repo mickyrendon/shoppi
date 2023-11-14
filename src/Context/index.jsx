@@ -8,13 +8,24 @@ export const ShoppingCartProvider = ({children}) => {
         children: PropTypes.node.isRequired,
     }   
 
-
     const [count, setCount] = useState(0)
-    console.log(`${count} elemento agregado`);
+    // console.log(`${count} elemento agregado`)
+    const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
+    const toggleProductDetailOpen = () => setIsProductDetailOpen(!isProductDetailOpen)
+
+    // product detail ~ show detail
+    // estado que permite obtener la informacion de la card clickeada y mostrar en el product detail
+    const [ productInfo, setProductInfo] = useState({})
+
+
     return (
         <ShoppingCartContext.Provider value={{
             count, 
-            setCount
+            setCount,
+            isProductDetailOpen,
+            toggleProductDetailOpen,
+            productInfo,
+            setProductInfo
         }}>
             {children}
         </ShoppingCartContext.Provider>

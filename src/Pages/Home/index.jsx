@@ -21,7 +21,7 @@ export const Home = () => {
         <Layout>
           Home
           <div  
-            className="grid gap-4  grid-cols-4 w-full max-w-screen-lg mt-8"
+            className="grid gap-4  grid-cols-4 w-full max-w-screen-md mt-8"
             >
             {
               items?.map((item) => 
