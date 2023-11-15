@@ -20,7 +20,8 @@ export const ProductDetail = () => {
                 </span>
             </nav>
             <figure>
-                <img src={details.images?.[0]} alt={details.category.name} className='w-full h-54 rounded-md'/>
+            {/* FIXME, details.category.name is undefined  alt={details.category.name}*/}
+                <img src={details.images?.[0]}  className='w-full h-54 rounded-md'/>
             </figure>
             <div className='flex justify-between gap-2 items-center'>
                 <span className='text-sm font-normal'>

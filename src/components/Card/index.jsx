@@ -8,15 +8,20 @@ export const Card = ({data}) => {
     Card.propTypes = {
         data: PropTypes.node.isRequired,
     }     
-    console.log(data)
+    // console.log(data)
 
     const context = useContext(ShoppingCartContext)
+
+    const addToCartEvent = (productData) => {
+        context.setCount(context.count + 1)
+        context.setAddToCart([...context.addToCart, productData])
+        console.log(`contenido de addToCart: ${context.addToCart.length}`)
+    }
 
     // product detail info recibe como valor a 'data' que se llama justo al clickear la card y que es la respuesta al fetch o a la api en forma de objeto
     const showProductInfo = (productDetail) => {
         context.toggleProductDetailOpen()
         context.setProductInfo(productDetail)
-
     }
 
     if (data && data.title && data.price) {
@@ -33,7 +38,7 @@ export const Card = ({data}) => {
                 className="w-4 h-4 grid place-content-center absolute right-4 top-4 rounded-full p-4 shadow-inner bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white"
                 onClick={(e) => {
                     e.stopPropagation()
-                    context.setCount(context.count + 1)
+                    addToCartEvent(data)
                 }}
                 >
                     <VscAdd className="w-4 h-4 stroke-1"/>
