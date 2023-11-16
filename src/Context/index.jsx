@@ -12,10 +12,17 @@ export const ShoppingCartProvider = ({children}) => {
     // console.log(`${count} elemento agregado`)
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
     const toggleProductDetailOpen = () => setIsProductDetailOpen(!isProductDetailOpen)
+    
+    // open cart order list
+    const [isOrderListOpen, setOrderListOpen] = useState(false)
+    const toggleOrderListOpen = () => setOrderListOpen(!isOrderListOpen)
 
     // product detail ~ show detail
     // estado que permite obtener la informacion de la card clickeada y mostrar en el product detail
     const [productInfo, setProductInfo] = useState({})
+
+    // estado para agregar al carrito de compras
+
 
     // estado para agregar cards al carrito
     const [addToCart, setAddToCart] = useState([])
@@ -29,7 +36,9 @@ export const ShoppingCartProvider = ({children}) => {
             productInfo,
             setProductInfo,
             addToCart,
-            setAddToCart
+            setAddToCart,
+            isOrderListOpen,
+            toggleOrderListOpen
         }}>
             {children}
         </ShoppingCartContext.Provider>

@@ -8,6 +8,7 @@ import {NotFound} from '../NotFound'
 import { NavBar } from '../../components/NavBar'
 import { ShoppingCartProvider } from '../../Context'
 import { Card } from '../../components/Card'
+import { ProductDetail } from '../../components/CheckoutOrder'
 import './App.css'
 
 
@@ -33,6 +34,7 @@ export const App = () => {
               <AppRoutes/>
               <NavBar/>
               <Card></Card>
+              <ProductDetail/>
           </BrowserRouter>
         </ShoppingCartProvider>
     </>
