@@ -1,12 +1,12 @@
-import { useContext } from 'react'
-import { ShoppingCartContext } from '../../Context'
+// import { useContext } from 'react'
+// import { ShoppingCartContext } from '../../Context'
 import { VscClose } from 'react-icons/vsc'
 
 export const OrderCard = props => {
 // guardando las propiedades del objeto que necesitamos para renderizar el componente, estos valores se pasan por medio de los atributos de cada componente y se reciben como propiedades dentro del componente a renderizar que es 'ordercard'
     const { id, img, title, price, deleteOrderCard} = props
     // usando el contexto
-    const context = useContext(ShoppingCartContext)
+    // const context = useContext(ShoppingCartContext)
     
     // FIXME, presonalizar el evento close 
     return (
