@@ -1,31 +1,71 @@
 import {PropTypes} from 'prop-types'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '../../Context'
-import { VscAdd } from 'react-icons/vsc'
+import { VscAdd, VscCheck } from 'react-icons/vsc'
 
-export const Card = ({data}) => {
+export const Card = ( {data} ) => {
     // codigo para que no salga el error '‘children’ is missing inprops validation'
     Card.propTypes = {
         data: PropTypes.node.isRequired,
     }     
-    console.log(data)
-
     const context = useContext(ShoppingCartContext)
 
-    const addToCartEvent = (productData) => {
+    const addToCartEvent = (cardData) => {
+         // guardando las props que quiero mostrar en el aside de detalles
+         const productDetailsToShow = {
+            id:          cardData.id,
+            img:         cardData.image,
+            title:       cardData.title,
+            price:       cardData.price,
+        }
+
         context.setCount(context.count + 1)
-        context.setAddToCart([...context.addToCart, productData])
-        console.log(`contenido de addToCart: ${context.addToCart.length}`)
+        context.setAddToCart([...context.addToCart, productDetailsToShow])
     }
+    
     const openListOrder = () => {
-        context.toggleOrderListOpen()
-        console.log(`abriendo order`);
+        context.setOrderListOpen(true)
+    }
+    // product detail info recibe como valor a 'data' que se llama justo al clickear la card y que es la respuesta al fetch o a la api en forma de objeto
+    const showProductInfo = (cardData) => {
+        // guardando las props que quiero mostrar en el aside de detalles
+        const productDetailsToShow = {
+            img:         cardData.image,
+            title:       cardData.title,
+            price:       cardData.price,
+            description: cardData.description
+        }
+        context.toggleProductDetailOpen()
+        context.setProductInfo(productDetailsToShow)
     }
 
-    // product detail info recibe como valor a 'data' que se llama justo al clickear la card y que es la respuesta al fetch o a la api en forma de objeto
-    const showProductInfo = (productDetail) => {
-        context.toggleProductDetailOpen()
-        context.setProductInfo(productDetail)
+    // render icon
+    const renderIcon = (id) => {
+        const isInCart = context.addToCart.filter(product => product.id === id).length > 0
+        if(isInCart) {
+            return(
+                <button 
+                    className="w-4 h-4 grid place-content-center absolute right-4 top-4 rounded-full p-4 shadow-inner  text-white bg-green-400"
+                    >
+                    <VscCheck className="w-4 h-4 stroke-1"/>
+                </button>
+            )
+        } else {
+            return (
+               <button 
+                    className="w-4 h-4 grid place-content-center absolute right-4 top-4 rounded-full p-4 shadow-inner  text-slate-900 bg-gradient-to-r from-gray-100 to-gray-300"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        // agregando los valores al estado addToCart
+                        addToCartEvent(data)
+                        // abriendo la lista de orders
+                        openListOrder()
+                    }}
+                    >
+                    <VscAdd className="w-4 h-4 stroke-1"/>
+                </button>
+            )
+        }
     }
 
     if (data && data.title && data.price) {
@@ -38,26 +78,17 @@ export const Card = ({data}) => {
         }}
         >
             <figure className="shrink w-full h-44 relative rounded-t-lg">
-                <button 
-                className="w-4 h-4 grid place-content-center absolute right-4 top-4 rounded-full p-4 shadow-inner bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-white"
-                onClick={(e) => {
-                    e.stopPropagation()
-                    addToCartEvent(data)
-                    openListOrder()
-                }}
-                >
-                    <VscAdd className="w-4 h-4 stroke-1"/>
-                </button>
-                <img src={data.images[0]} alt={data.category.name} className="w-full h-full object-cover rounded-t-lg"/>
-                <span className="absolute left-4 bottom-4 text-xs font-medium py-0.5 px-2 border-2 rounded-md bg-slate-200 shadow-inner">{data.category.name}</span>
+                {renderIcon(data.id)}
+                <img src={data.image} alt={data.title} className="w-full h-full object-scale-down rounded-t-lg"/>
+                <span className="absolute left-4 bottom-4 text-xs font-medium py-0.5 px-2 border-2 rounded-md bg-slate-200 shadow-inner">{data.category}</span>
             </figure>   
             <div className="p-1 flex items-start justify-between gap-1 shadow-inner">
-                <span className="p-1 text-sm font-normal">{data.title}</span>
+                <span className="p-1 text-sm font-normal truncate">{data.title}</span>
                 <span className="p-1 text-lg font-semibold">${data.price}</span>
             </div>
         </div>
     )
     } else {
-    return <div>Loading...</div>; // or handle the loading state in another way
+    return <div className='p-1 text-sm font-normal'>Loading...</div>; // or handle the loading state in another way
     }    
 }

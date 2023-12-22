@@ -14,7 +14,7 @@ export const NavBar = () => {
             <ul className='flex gap-3 items-center'>
                 <li className="text-lg font-bold ">
                     <NavLink to='/'>
-                        Shopi
+                        Bensof
                     </NavLink>
                 </li>
                 <li >
