@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { ShoppingCartContext } from '../../Context'
 import { OrderCard } from '../OrderCard'
 import { VscClose } from 'react-icons/vsc'
@@ -62,8 +63,9 @@ export const AddingNewCardToCart = () => {
                     <span className='font-semibold'>${totalPrice(context.addToCart)}</span>
                 </p>
             </div>
-            {/* TODO, usar el btn para ir al carrito */}
-            <button className='px-4 py-2 bg-green-400 rounded-lg text-white text-base font-semibold' onClick={() => addOrderToMyOrders()}>Ver carrito</button>
+            <Link to={'/my-orders/last'}>
+                <button className='px-4 py-2 w-full bg-green-400 rounded-lg text-white text-base font-semibold' onClick={() => addOrderToMyOrders()}>Ver carrito</button>
+            </Link>
         </aside>
     )
 }

@@ -19,7 +19,6 @@ export const ShoppingCartProvider = ({children}) => {
     // product detail ~ show detail
     // estado que permite obtener la informacion de la card clickeada y mostrar en el product detail
     const [productInfo, setProductInfo] = useState({})
-
     // estado para agregar cards al carrito
     const [addToCart, setAddToCart] = useState([])
     // estado para agregar ordenes de compra al historial de ordenes

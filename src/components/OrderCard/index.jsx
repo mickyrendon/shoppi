@@ -7,6 +7,8 @@ export const OrderCard = props => {
     const { id, img, title, price, deleteOrderCard} = props
     // usando el contexto
     // const context = useContext(ShoppingCartContext)
+    let deleteIcon
+    deleteOrderCard? deleteIcon = <VscClose/> :null
     
     // FIXME, presonalizar el evento close 
     return (
@@ -24,7 +26,7 @@ export const OrderCard = props => {
                 onClick={() => deleteOrderCard(id)}
                 // onClick={ () => {context.setOrderListOpen(false), console.log('cerrando la lista de order')}}
                 >
-                    <VscClose/>
+                    {deleteIcon}
                 </span>
                 <p className="text-base font-medium">{`$${price}`}</p>
             </div>

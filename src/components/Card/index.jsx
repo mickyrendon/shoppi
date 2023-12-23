@@ -89,6 +89,6 @@ export const Card = ( {data} ) => {
         </div>
     )
     } else {
-    return <div className='p-1 text-sm font-normal'>Loading...</div>; // or handle the loading state in another way
+    return <div className='p-1 text-sm font-normal'>Loading...</div>// or handle the loading state in another way
     }    
 }
