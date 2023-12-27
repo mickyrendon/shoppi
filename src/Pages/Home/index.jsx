@@ -1,45 +1,48 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
+import { useContext} from "react"
 import { Layout } from "../../components/Layout"
 import { Card } from "../../components/Card"
 import { ProductDetail } from "../../components/ProductDetail"
+import { ShoppingCartContext } from "../../Context"
 
 
 export const Home = () => {
-  
-  // FIXME, encontrar una buena API
-  const options = {
-    method: 'GET',
-    url: 'https://fakestoreapi.com/products'
-  }
+  const context = useContext(ShoppingCartContext)
 
-  // usestate es como una variable que guarda informacion y la controla para mostrarla cuando se requiera
-  const [items, setItems] = useState(null)
-  
-  useEffect(() => {
-    async function petition (){
-      try {
-        const response = await axios.request(options)
-        setItems(response.data)
-      } catch (error) {
-        console.error(error)
+  const renderView = () => {
+    if(context.searchValue?.length > 0){
+      if(context.filteredItems?.length > 0){
+        return (
+          context.filteredItems?.map(item => (
+            <Card key={item.id} data={item} />
+          ))
+        )
+      }else{
+        return(
+          <p>Nothing found</p>
+        )
       }
-      
+    }else{
+      return (
+        context.items?.map(item => (
+          <Card key={item.id} data={item} />
+        ))
+      )
     }
-    petition()
-  }, [])
-
+      
+  }
   return (
         <Layout>
-          Home
+          <div className="mt-8 mb-16 w-80 flex flex-col justify-center items-center gap-4">
+            <h1>Exclusive Products</h1>
+            <input 
+              className="w-full h-8 px-4 py-2 text-start text-sm font-normal outline outline-1 rounded-sm" placeholder="Find a product"
+              onChange={(e) => context.setSearchValue(e.target.value)}
+            ></input>
+          </div>
           <div  
             className="grid gap-4  grid-cols-4 w-full max-w-screen-md mt-8"
             >
-            {
-              items?.map((item) =>
-                  item ? <Card key={item.id} data={item}/> : null
-                )
-            }
+            {renderView()}
           </div>
           <ProductDetail></ProductDetail>
         </Layout>
