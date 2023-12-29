@@ -3,13 +3,12 @@ import { useContext } from 'react'
 import { ShoppingCartContext } from '../../Context'
 import { VscAdd, VscCheck } from 'react-icons/vsc'
 
-export const Card = ( {data} ) => {
+export const Card = ({data}) => {
     // codigo para que no salga el error '‘children’ is missing inprops validation'
     Card.propTypes = {
         data: PropTypes.node.isRequired,
     }     
     const context = useContext(ShoppingCartContext)
-
     const addToCartEvent = (cardData) => {
          // guardando las props que quiero mostrar en el aside de detalles
          const productDetailsToShow = {
@@ -67,28 +66,27 @@ export const Card = ( {data} ) => {
             )
         }
     }
-
     if (data && data.title && data.price) {
-    return (
-        <div className="w-44 h-auto flex flex-col cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow"
-        onClick={ (e) => {
-            e.stopPropagation()
-            // recibe como parametro a data que viene destructurado del componente Card el cual tiene como valor la respuesta del fetch que es uno bjeto
-            showProductInfo(data)
-        }}
-        >
-            <figure className="shrink w-full h-44 relative rounded-t-lg">
-                {renderIcon(data.id)}
-                <img src={data.image} alt={data.title} className="w-full h-full object-scale-down rounded-t-lg"/>
-                <span className="absolute left-4 bottom-4 text-xs font-medium py-0.5 px-2 border-2 rounded-md bg-slate-200 shadow-inner">{data.category}</span>
-            </figure>   
-            <div className="p-1 flex items-start justify-between gap-1 shadow-inner">
-                <span className="p-1 text-sm font-normal truncate">{data.title}</span>
-                <span className="p-1 text-lg font-semibold">${data.price}</span>
+        return (
+            <div className="w-44 h-auto flex flex-col cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            onClick={ (e) => {
+                e.stopPropagation()
+                // recibe como parametro a data que viene destructurado del componente Card el cual tiene como valor la respuesta del fetch que es uno bjeto
+                showProductInfo(data)
+            }}
+            >
+                <figure className="shrink w-full h-44 relative rounded-t-lg">
+                    {renderIcon(data.id)}
+                    <img src={data.image} alt={data.title} className="w-full h-full object-scale-down rounded-t-lg"/>
+                    <span className="absolute left-4 bottom-4 text-xs font-medium py-0.5 px-2 border-2 rounded-md bg-slate-200 shadow-inner">{data.category}</span>
+                </figure>   
+                <div className="p-1 flex items-start justify-between gap-1 shadow-inner">
+                    <span className="p-1 text-sm font-normal truncate">{data.title}</span>
+                    <span className="p-1 text-lg font-semibold">${data.price}</span>
+                </div>
             </div>
-        </div>
-    )
-    } else {
-    return <div className='p-1 text-sm font-normal'>Loading...</div>// or handle the loading state in another way
-    }    
+        )
+    } //else {
+    // return <div className='p-1 text-sm font-normal'>Loading...</div>// or handle the loading state in another way
+    // }    
 }
