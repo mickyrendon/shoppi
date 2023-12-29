@@ -21,13 +21,6 @@ export const Home = () => {
           <p>Nothing found</p>
         )
       }
-    // }else{
-    //   return (
-    //     context.filteredItems?.map(item => (
-    //       <Card key={item.id} data={item} />
-    //     ))
-    //   )
-    // }
   }
   return (
         <Layout>
