@@ -28,21 +28,53 @@ export const ShoppingCartProvider = ({children}) => {
             
         }
         petition()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    //get Searcher value
+    //get Searcher value by title
     const [searchValue, setSearchValue] = useState(null)
+    // get by category
+    const [searchByCategory, setSearchByCategory] = useState(null)
     // filtered items
     const [filteredItems, setFilteredItems] = useState(null)
 
-    const filterdItemsByTitle = (items, searchValue) => {
+    const filteredItemsByTitle = (items, searchValue) => {
         return (
             items?.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
         )
     }
+    const filteredItemsByCategory = (items, searchByCategory) => {
+        return (
+            items?.filter(item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
+        )
+    }
+
+    const filterBy = (type, items, searchValue, searchByCategory) => {
+        if(type === 'BY_TITLE') {
+            return filteredItemsByTitle(items, searchValue)
+        }
+        if(type === 'BY_CATEGORY') {
+            return filteredItemsByCategory(items, searchByCategory)
+        }
+        if(type === 'BY_TITLE_AND_CATEGORY') {
+            return filteredItemsByCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+        }
+        if(!type) {
+            return items
+        }
+    }
 
     useEffect(() => {
-        searchValue? setFilteredItems(filterdItemsByTitle(items, searchValue)): null
-    }, [items, searchValue])
+        if(searchValue && searchByCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchValue, searchByCategory))
+        if(searchValue && !searchByCategory) setFilteredItems(filterBy('BY_TITLE', items, searchValue, searchByCategory))
+        if(!searchValue && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY', items, searchValue, searchByCategory))
+        if(!searchValue && !searchByCategory) setFilteredItems(filterBy(null, items, searchValue, searchByCategory))
+        /* searchValue && searchByCategory? setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchValue, searchByCategory)):
+        searchValue && !searchByCategory? setFilteredItems(filterBy('BY_TITLE', items, searchValue, searchByCategory)):
+        searchValue && searchByCategory? setFilteredItems(filterBy('BY_CATEGORY', items, searchValue, searchByCategory)):
+        searchValue && !searchByCategory? null: null 
+        */
+        
+    }, [items, searchValue, searchByCategory])
 
     const [count, setCount] = useState(0)
 
@@ -78,7 +110,9 @@ export const ShoppingCartProvider = ({children}) => {
             setItems,
             searchValue,
             setSearchValue,
-            filteredItems
+            filteredItems,
+            searchByCategory,
+            setSearchByCategory
         }}>
             {children}
         </ShoppingCartContext.Provider>

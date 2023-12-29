@@ -7,7 +7,7 @@ import { ShoppingCartContext } from "../../Context"
 
 export const Home = () => {
   const context = useContext(ShoppingCartContext)
-
+  
   const renderView = () => {
     if(context.searchValue?.length > 0){
       if(context.filteredItems?.length > 0){
@@ -23,12 +23,11 @@ export const Home = () => {
       }
     }else{
       return (
-        context.items?.map(item => (
+        context.filteredItems?.map(item => (
           <Card key={item.id} data={item} />
         ))
       )
     }
-      
   }
   return (
         <Layout>
