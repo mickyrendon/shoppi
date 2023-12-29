@@ -28,7 +28,7 @@ export const AddingNewCardToCart = () => {
         // setOrder guarda las ordenes para mostrarlas en el historial
         context.setOrder([...context.order, orderToAdd])
         context.setAddToCart([])
-        console.log(context.addToCart)
+        context.setSearchValue(null)
     }
 
     return (

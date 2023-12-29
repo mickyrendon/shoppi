@@ -13,21 +13,22 @@ export const NavBar = () => {
         >
             <ul className='flex gap-3 items-center'>
                 <li className="text-lg font-bold ">
-                    <NavLink to='/'>
+                    {/* <NavLink to='/'>
                         Bensof
-                    </NavLink>
+                    </NavLink> */}
+                    Bensof
                 </li>
-                {/* <li >
+                <li >
                     <NavLink
                         to='/all'
-                        onClick={() => context.setSearchByCategory('all')}
+                        onClick={() => context.setSearchByCategory()}
                         className={({isActive}) => 
                             isActive ? activeStyle : undefined
                         }
                     >
                         All
                     </NavLink>
-                </li> */}
+                </li>
                 <li >
                     <NavLink
                         to='/electronics'
@@ -127,7 +128,7 @@ export const NavBar = () => {
                         className="flex items-center gap-1"
                     >
                         <MdShoppingCart className='w-4 h-4'/>
-                        {context.count}
+                        {context.addToCart.length}
                     </NavLink>
                 </li>
                 

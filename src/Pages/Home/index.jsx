@@ -9,7 +9,7 @@ export const Home = () => {
   const context = useContext(ShoppingCartContext)
   
   const renderView = () => {
-    if(context.searchValue?.length > 0){
+    // if(context.searchValue?.length > 0){
       if(context.filteredItems?.length > 0){
         return (
           context.filteredItems?.map(item => (
@@ -21,13 +21,13 @@ export const Home = () => {
           <p>Nothing found</p>
         )
       }
-    }else{
-      return (
-        context.filteredItems?.map(item => (
-          <Card key={item.id} data={item} />
-        ))
-      )
-    }
+    // }else{
+    //   return (
+    //     context.filteredItems?.map(item => (
+    //       <Card key={item.id} data={item} />
+    //     ))
+    //   )
+    // }
   }
   return (
         <Layout>

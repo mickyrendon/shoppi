@@ -68,11 +68,11 @@ export const ShoppingCartProvider = ({children}) => {
         if(searchValue && !searchByCategory) setFilteredItems(filterBy('BY_TITLE', items, searchValue, searchByCategory))
         if(!searchValue && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY', items, searchValue, searchByCategory))
         if(!searchValue && !searchByCategory) setFilteredItems(filterBy(null, items, searchValue, searchByCategory))
-        /* searchValue && searchByCategory? setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY', items, searchValue, searchByCategory)):
-        searchValue && !searchByCategory? setFilteredItems(filterBy('BY_TITLE', items, searchValue, searchByCategory)):
-        searchValue && searchByCategory? setFilteredItems(filterBy('BY_CATEGORY', items, searchValue, searchByCategory)):
-        searchValue && !searchByCategory? null: null 
-        */
+
+        // input cleaner
+        // return () => {
+        //     setSearchValue(null)
+        //   }
         
     }, [items, searchValue, searchByCategory])
 
