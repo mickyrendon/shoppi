@@ -16,7 +16,7 @@ export const NavBar = () => {
                     {/* <NavLink to='/'>
                         Bensof
                     </NavLink> */}
-                    Bensof
+                    Shoppi
                 </li>
                 <li >
                     <NavLink
