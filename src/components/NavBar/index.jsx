@@ -111,12 +111,22 @@ export const NavBar = () => {
                 </li>
                 <li >
                     <NavLink
-                        to='/sign-in'
+                        to='/log-in'
                         className={({isActive}) => 
                             isActive ? activeStyle : undefined
                         }
                     >
-                        Sign In
+                        Log In
+                    </NavLink>
+                </li>
+                <li >
+                    <NavLink
+                        to='/sign-up'
+                        className={({isActive}) => 
+                            isActive ? activeStyle : undefined
+                        }
+                    >
+                        Sign Up
                     </NavLink>
                 </li>
                 <li >
