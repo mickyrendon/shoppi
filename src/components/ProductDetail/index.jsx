@@ -34,6 +34,7 @@ export const ProductDetail = () => {
             <p className='text-sm font-normal text-wrap text-slate-700 h-auto overflow-y-auto max-h-56'>
                 {details.description}
             </p>
+            {/* TODO evento agregar al carrito */}
             <button className='px-4 py-2 mt-4 bg-green-400 rounded-lg text-white text-base font-semibold'>Agregar al carrito</button>
         </aside>
     )
