@@ -1,13 +1,47 @@
 import axios from "axios"
+import { parse } from "postcss"
 import {PropTypes} from "prop-types"
 import { createContext, useState, useEffect } from 'react'
 
 export const ShoppingCartContext = createContext()
 
+// LocalStorage checker(isUserSignUp or not)
+export const localStorageStarter = () => {
+    // getting user account if already registered
+    const userAlreadyRegistered = localStorage.getItem('user-account')
+    //getting the localstorage status to toggle if is necesary
+    const userSignOut = localStorage.getItem('sign-out')
+    let parsedAccount, parsedSignOut
+    
+    if (!userAlreadyRegistered){
+        localStorage.setItem('user-account', JSON.stringify({}))
+        parsedAccount = {}
+    }else{
+        parsedAccount = JSON.parse(userAlreadyRegistered)
+    }
+
+    if(!userSignOut){
+        localStorage.setItem('sign-out', JSON.stringify(false))
+        parsedSignOut = false
+    }else{
+        parsedSignOut = JSON.parse(userSignOut)
+        console.log(parsedSignOut)
+    }
+}
+
+
 export const ShoppingCartProvider = ({children}) => {
     ShoppingCartProvider.propTypes = {
         children: PropTypes.node.isRequired,
     }   
+
+    // user account
+    const [userAccount, setUserAccount] = useState({})
+    // sign out
+    const [signOut, setSignOut] = useState(false)
+
+
+
     // FIXME, encontrar una buena API
     const options = {
     method: 'GET',
@@ -112,7 +146,11 @@ export const ShoppingCartProvider = ({children}) => {
             setSearchValue,
             filteredItems,
             searchByCategory,
-            setSearchByCategory
+            setSearchByCategory,
+            userAccount,
+            setUserAccount,
+            signOut,
+            setSignOut
         }}>
             {children}
         </ShoppingCartContext.Provider>

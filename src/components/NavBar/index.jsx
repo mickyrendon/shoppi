@@ -6,6 +6,84 @@ import { MdShoppingCart } from 'react-icons/md'
 export const NavBar = () => {
     const context = useContext(ShoppingCartContext)
     const activeStyle = 'underline underline-offset-4'
+
+    const signOutKey = localStorage.getItem('sign-out')
+    const parsedSignOut = JSON.parse(signOutKey)
+    const isUserSignOut = context.signOut || parsedSignOut
+
+    const signOutBtnEvent = () => {
+        const status = JSON.stringify(true)
+        localStorage.setItem('sign-out', status)
+        context.setSignOut(true)
+        console.log('click ' + localStorage.getItem('sign-out') + context.signOut)
+    }
+
+    const renderView =  () => {
+        if(isUserSignOut){
+            return (
+                <li >
+                    <NavLink
+                        to='/sign-in'
+                        onClick={() =>  signOutBtnEvent()}
+                        className={({isActive}) => 
+                            isActive ? activeStyle : undefined
+                        }
+                    >
+                        Sign Out
+                    </NavLink>
+                </li>
+            )
+        }else{
+            return (
+                <>
+                    <li className="text-neutral-500">
+                        micky@bensof.com
+                    </li>
+                    <li >
+                        <NavLink
+                            to='/my-orders'
+                            className={({isActive}) => 
+                                isActive ? activeStyle : undefined
+                            }
+                        >
+                            My Orders
+                        </NavLink>
+                    </li>
+                    <li >
+                        <NavLink
+                            to='/my-account'
+                            className={({isActive}) => 
+                                isActive ? activeStyle : undefined
+                            }
+                        >
+                            My Account
+                        </NavLink>
+                    </li>
+                    <li >
+                        <NavLink
+                            to='/sign-in'
+                            onClick={() =>  signOutBtnEvent()}
+                            className={({isActive}) => 
+                                isActive ? activeStyle : undefined
+                            }
+                        >
+                            Sign In
+                        </NavLink>
+                    </li>
+                    {/* <li >
+                        <NavLink
+                            to='/sign-up'
+                            className={({isActive}) => 
+                                isActive ? activeStyle : undefined
+                            }
+                        >
+                            Sign Up
+                        </NavLink>
+                    </li> */}
+                </>
+            )
+        }
+    }   
     
     return (
         <nav 
@@ -86,49 +164,7 @@ export const NavBar = () => {
                 </li>
             </ul>
             <ul className='flex gap-3 items-center'>
-                <li className="text-neutral-500">
-                    micky@bensof.com
-                </li>
-                <li >
-                    <NavLink
-                        to='/my-orders'
-                        className={({isActive}) => 
-                            isActive ? activeStyle : undefined
-                        }
-                    >
-                        My Orders
-                    </NavLink>
-                </li>
-                <li >
-                    <NavLink
-                        to='/my-account'
-                        className={({isActive}) => 
-                            isActive ? activeStyle : undefined
-                        }
-                    >
-                        My Account
-                    </NavLink>
-                </li>
-                <li >
-                    <NavLink
-                        to='/log-in'
-                        className={({isActive}) => 
-                            isActive ? activeStyle : undefined
-                        }
-                    >
-                        Log In
-                    </NavLink>
-                </li>
-                <li >
-                    <NavLink
-                        to='/sign-up'
-                        className={({isActive}) => 
-                            isActive ? activeStyle : undefined
-                        }
-                    >
-                        Sign Up
-                    </NavLink>
-                </li>
+                {renderView()}
                 <li >
                     <NavLink
                         // to='/carrito'
@@ -141,8 +177,7 @@ export const NavBar = () => {
                         {context.addToCart.length}
                     </NavLink>
                 </li>
-                
             </ul>
         </nav>
-  )
+    )
 }
